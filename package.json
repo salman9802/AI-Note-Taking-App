@@ -1,7 +1,7 @@
 {
   "name": "ai-note-taking-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Note taking app with AI powered features: AI Summary, AI Improve and AI Tags",
   "scripts": {
     "install:client": "cd client && npm install --legacy-peer-deps",
     "install:server": "cd server && npm install --legacy-peer-deps",

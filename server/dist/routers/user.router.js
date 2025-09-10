@@ -40,15 +40,16 @@ const express_1 = __importDefault(require("express"));
 const UserController = __importStar(require("../controllers/user.controller"));
 const error_1 = require("../lib/error");
 const user_middleware_1 = require("../middlewares/user.middleware");
+const limit_middleware_1 = require("../middlewares/limit.middleware");
 const userRouter = express_1.default.Router();
-userRouter.post("/register", (0, error_1.errorCatch)(UserController.registerUser));
+userRouter.post("/register", (0, error_1.errorCatch)(limit_middleware_1.limitUserRegistration), (0, error_1.errorCatch)(UserController.registerUser));
 userRouter.post("/login", (0, error_1.errorCatch)(UserController.loginUser));
 userRouter.delete("/logout", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(UserController.logoutUser));
 userRouter.get("/access", (0, error_1.errorCatch)(UserController.newAccessToken)); // Creates new access token (refresh)
 // Note Management endpoints
 userRouter.get("/note", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(UserController.fetchUserNotes));
 userRouter.get("/note/:noteId", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(UserController.fetchUserNote));
-userRouter.post("/note", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(UserController.createUserNote));
+userRouter.post("/note", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(limit_middleware_1.limitUserNote), (0, error_1.errorCatch)(UserController.createUserNote));
 userRouter.put("/note/:noteId", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(user_middleware_1.checkNoteOwnership), (0, error_1.errorCatch)(UserController.updateUserNote));
 userRouter.delete("/note/:noteId", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(user_middleware_1.checkNoteOwnership), (0, error_1.errorCatch)(UserController.deleteUserNote));
 userRouter.post("/note/:noteId/tag", (0, error_1.errorCatch)(user_middleware_1.userHasAccess), (0, error_1.errorCatch)(user_middleware_1.checkNoteOwnership), (0, error_1.errorCatch)(UserController.createUserNoteTags));
