@@ -41,9 +41,11 @@ const RegisterPage = () => {
         let message;
 
         if (error.response?.data.message.email)
-          message = error.response?.data.message.email;
+          message = error.response.data.message.email;
         else if (error.response?.data.message.password)
-          message = error.response?.data.message.password;
+          message = error.response.data.message.password;
+        else if (error.response?.data.message)
+          message = error.response.data.message;
         else message = "Something went wrong";
 
         setError("root", {

@@ -6,10 +6,18 @@ import {
   checkNoteOwnership,
   userHasAccess,
 } from "../middlewares/user.middleware";
+import {
+  limitUserNote,
+  limitUserRegistration,
+} from "../middlewares/limit.middleware";
 
 const userRouter = express.Router();
 
-userRouter.post("/register", errorCatch(UserController.registerUser));
+userRouter.post(
+  "/register",
+  errorCatch(limitUserRegistration),
+  errorCatch(UserController.registerUser)
+);
 userRouter.post("/login", errorCatch(UserController.loginUser));
 userRouter.delete(
   "/logout",
@@ -32,6 +40,7 @@ userRouter.get(
 userRouter.post(
   "/note",
   errorCatch(userHasAccess),
+  errorCatch(limitUserNote),
   errorCatch(UserController.createUserNote)
 );
 userRouter.put(
