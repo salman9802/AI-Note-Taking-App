@@ -33,7 +33,8 @@ app.use("/", routers_1.default);
 app.use(error_middleware_1.errorMiddleware);
 const HOST = env_1.ENV.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
 // const HOST = "localhost";
-app.listen(80, HOST, (err) => {
+const PORT = process.env.PORT ? process.env.PORT : 80;
+app.listen(PORT, HOST, (err) => {
     if (err) {
         console.error(err);
         return;

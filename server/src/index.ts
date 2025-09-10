@@ -40,7 +40,8 @@ app.use(errorMiddleware);
 
 const HOST = ENV.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
 // const HOST = "localhost";
-app.listen(80, HOST, (err) => {
+const PORT = process.env.PORT ? (process.env.PORT as unknown as number) : 80;
+app.listen(PORT, HOST, (err) => {
   if (err) {
     console.error(err);
     return;
